@@ -32,7 +32,7 @@ Proceso:
 Proceso:
 - Usuario:
   - Ingresar nombre del autor a buscar o un fragmento de este.
-  - Elegir si se desea realizar la consulta en la base de datos o en Gutendex.
+  - Elegir si se desea realizar la consulta en la base de datos o en la API Gutendex.
 - Programa:
   - Consulta en base a la elección del usuario: 
     - Base de datos.
