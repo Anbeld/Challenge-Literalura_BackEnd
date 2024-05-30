@@ -4,7 +4,7 @@ Biblioteca potenciada por la API: **[Gutendex](https://gutendex.com/ "Gutendex")
 Permite realizar consultas especializadas en libros y autores. Los libros y autores consultados son almacenados en la base de datos.
 
 ## Índice
-- [Modo de uso](#modo-de-uso)
+- **[Modo de uso](#modo-de-uso)**
   - [Menú inicial](#menú-inicial)
   - [Buscar libros por nombre](#buscar-libros-por-nombre)
   - [Buscar libros por autor](#buscar-libros-por-autor)
