@@ -3,6 +3,17 @@ Biblioteca potenciada por la API: **[Gutendex](https://gutendex.com/ "Gutendex")
 
 Permite realizar consultas especializadas en libros y autores. Los libros y autores consultados son almacenados en la base de datos.
 
+## Índice
+- [Modo de uso](#modo-de-uso)
+  - [Menú inicial](#menú-inicial)
+  - [Buscar libros por nombre](#buscar-libros-por-nombre)
+  - [Buscar libros por autor](#buscar-libros-por-autor)
+  - [Mostrar libros registrados](#mostrar-libros-registrados)
+  - [Mostrar autores registrados](#mostrar-autores-registrados)
+  - [Mostrar autores vivos en determinado año](#mostrar-autores-vivos-en-determinado-año)
+  - [Mostrar libros por idioma](#mostrar-libros-por-idioma)
+  - [Top 10 libros más descargados](#top-10-libros-más-descargados)
+
 ## Modo de uso
 ### Menú inicial
 Funcionalidades:
@@ -11,7 +22,7 @@ Funcionalidades:
 
 ![Menu inicial](https://github.com/Anbeld/Challenge-Literalura_BackEnd/assets/147835151/a543e0db-c6a2-4709-98e6-30e625fac5f4)
 
-#### Buscar libros por nombre
+### Buscar libros por nombre
 Proceso:
 - Usuario:
   - Ingresar nombre del libro a buscar o un fragmento de este.
@@ -28,7 +39,7 @@ Proceso:
   
 ![Buscar libros por autor](https://github.com/Anbeld/Challenge-Literalura_BackEnd/assets/147835151/b876fb64-09f1-435d-a7e8-571b73f490be)
 
-#### Buscar libros por autor
+### Buscar libros por autor
 Proceso:
 - Usuario:
   - Ingresar nombre del autor a buscar o un fragmento de este.
