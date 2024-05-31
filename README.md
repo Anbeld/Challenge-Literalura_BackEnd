@@ -80,7 +80,7 @@ Proceso:
 - Programa:
   - Consulta en la base de datos todos los autores vivos en el año ingresado por el usuario.
     - Si existe al menos uno lo muestra en la terminal.
-    - Si no existe ningún autor que cumpla la condición muestra un mensaje informando que no se encontró ningún autor. 
+    - Si no existe ningún autor que cumpla la condición muestra un mensaje informando que no se encontró ningún autor.
 ![Autores vivos en determinado año](https://github.com/Anbeld/Challenge-Literalura_BackEnd/assets/147835151/50d2b2e5-a5b2-401b-8d74-22daea73f42a)
 
 ### Mostrar libros por idioma
