@@ -131,10 +131,10 @@ public class Main {
             try {
                 System.out.println("""
                         Ingrese el idioma del libro que desa buscar
-                        1 - Español
-                        2 - Inglés
-                        3 - Portugués
-                        4 - Francés
+                        1 - Español (es)
+                        2 - Inglés (en)
+                        3 - Portugués (pt)
+                        4 - Francés (fr)
                         5 - Otro
                         """);
                 opcion = Integer.parseInt(scanner.nextLine());
