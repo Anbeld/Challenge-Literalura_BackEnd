@@ -3,6 +3,7 @@ package com.aluracursos.Challenge_Literalura_BackEnd.service;
 import com.aluracursos.Challenge_Literalura_BackEnd.model.*;
 import com.aluracursos.Challenge_Literalura_BackEnd.repository.AutorRepository;
 import jakarta.transaction.Transactional;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -22,13 +23,19 @@ public class AutorService {
     public AutorService() {
     }
 
+    // Busca libro en base al fragmento del nombre ingresado por el usuario.
+    // Si se genera algún error cancela todo el proceso
     @Transactional
     public void buscarLibrosPorTitulo(String titulo) {
         Optional<Libro> libroBaseDatos = repository.obtenerLibroPorNombreAutor(titulo);
 
         // Informa los resultados obtenidos en la consulta a la base de datos
         if (libroBaseDatos.isPresent()) {
-            System.out.println("Libro encontrado en base de datos");
+            System.out.println("""
+                    ----------------------------------------
+                    Libro encontrado en base de datos
+                    ----------------------------------------
+                    """);
             System.out.println(libroBaseDatos.get());
         } else {
             System.out.println("""
@@ -56,15 +63,13 @@ public class AutorService {
                         ----------------------------------------
                         """);
             }
-
-            // Verifica la existencia del libro y lo guarda en la base de datos
         }
     }
 
-
+    // Consulta en la base de datos si existe algún autor que en su nombre contenga el fragmento ingresado por el usuario
     public void buscarAutorPorNombreBaseDatos(String nombreAutor) {
         Optional<Autor> autor = repository.obtenerAutorPorNombre(nombreAutor);
-        if (autor.isPresent()){
+        if (autor.isPresent()) {
             System.out.println(autor);
         } else {
             System.out.println("""
@@ -75,7 +80,8 @@ public class AutorService {
         }
     }
 
-    public void buscarAutorPorNombreGutendex(String nombreAutor) {
+    // Consulta en la API Gutendex si existe algún autor que en su nombre contenga el fragmento ingresado por el usuario
+    public void buscarAutorPorNombreGutendex(@NotNull String nombreAutor) {
         System.out.println("""
                 ----------------------------------------
                        Consultando en GUTENDEX
@@ -85,13 +91,15 @@ public class AutorService {
         String url = URL_BASE + URL_SEARCH + nombreAutor.replaceAll(" ", "+");
         Datos datosBusqueda = realizarConsultaAPI(url);
 
+        // Obtiene la consulta de la API Gutendex
         Optional<DatosAutor> datosAutor = datosBusqueda.libros().stream()
                 .flatMap(l -> l.autor().stream().filter(a -> a.nombre().toUpperCase().contains(nombreAutor.toUpperCase())))
                 .findFirst();
 
+        // Muestra los resultados de la consulta
         if (datosAutor.isPresent()) {
             Optional<Autor> autorExistente = repository.obtenerAutor(datosAutor.get().nombre(), datosAutor.get().fechaNacimiento(), datosAutor.get().fechaFallecimiento());
-            if (autorExistente.isPresent()){
+            if (autorExistente.isPresent()) {
                 System.out.println(autorExistente);
             } else {
                 Autor autor = new Autor(datosAutor.get());
@@ -107,6 +115,7 @@ public class AutorService {
         }
     }
 
+    // Muestra todos los libros registrados en la base de datos
     public void mostrarLibrosRegistrados() {
         List<Libro> libros = new ArrayList<>();
         List<Autor> autores = repository.findAll();
@@ -124,6 +133,7 @@ public class AutorService {
         }
     }
 
+    // Muestra todos los libros registrados en la API Gutendex
     public void mostrarAutoresRegistrados() {
         List<Autor> autores = repository.findAll();
         if (!autores.isEmpty()) {
@@ -137,9 +147,12 @@ public class AutorService {
         }
     }
 
+    // Consulta los autores vivos en un determinado año
     public void mostrarAutoresVivosPorFecha(Integer anio) {
         List<Autor> autores = repository.obtenerAutoresVivosPorFecha(anio);
 
+        // Si existen autores que cumplan la condición lo muestra en pantalla
+        // En caso contrario muestra un mensaje informando que ningún autor cumple la condición
         if (!autores.isEmpty()) {
             autores.forEach(System.out::println);
         } else {
@@ -151,6 +164,7 @@ public class AutorService {
         }
     }
 
+    // Consulta los libros que estén en el idioma seleccionado
     public void mostrarLibrosPorIdioma(List<String> diminutivoIdioma) {
         List<Libro> libros = repository.obtenerLibroPorIdioma(diminutivoIdioma);
 
@@ -165,6 +179,7 @@ public class AutorService {
         }
     }
 
+    // Consulta los 10 libros más descargados en la API Gutendex
     public void mostrarTop10LibrosDescargados() {
         Datos datos = realizarConsultaAPI(URL_BASE);
 
@@ -175,8 +190,9 @@ public class AutorService {
 
         buscarTop10Libros(top10LibrosConsulta);
     }
-
-    private void crearLibroUsuario(Optional<DatosLibro> datosLibro) {
+    
+    // En base a un Optional de DatosLibro crea el libro junto a sus respectivos autores y los guarda en la base de datos
+    private void crearLibroUsuario(@NotNull Optional<DatosLibro> datosLibro) {
             // Revisa si alguno de los autores del libro buscado ya existe
             List<Autor> autorExistente = datosLibro.stream()
                     .flatMap(libro -> libro.autor().stream()
@@ -215,11 +231,10 @@ public class AutorService {
 
             // Se presenta la información del libro buscado
             System.out.println(libro);
-
-
     }
 
-    private void buscarTop10Libros(List<DatosLibro> top10LibrosConsulta){
+    // En base a una lista de DatosLibro filtra los 10 libros más descargados en la API Gutendex
+    private void buscarTop10Libros(@NotNull List<DatosLibro> top10LibrosConsulta){
         List<Libro> top10LibrosGeneral = new ArrayList<>();
 
         // Revisa si alguno de los autores del libro buscado ya existe y que este no se repita en la lista
